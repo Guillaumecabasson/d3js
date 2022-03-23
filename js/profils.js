@@ -2,7 +2,7 @@
 d3.csv("data/user_profil.csv", function(error, data) {
     var marge = {haut: 20, droite:30, bas:20, gauche: 30};
     var hauteur = 500;
-    var largeur = 900;
+    var largeur = d3.max(data, d => d.nbsuiveurs);
     var xScale = d3.scaleBand().domain(data.map(d => d.nbtweets)).range([marge.gauche, largeur]);
     var yScale = d3.scaleLinear().domain([0, d3.max(data, d => d.nbsuiveurs)]).range([hauteur - marge.bas, marge.haut]);
 
