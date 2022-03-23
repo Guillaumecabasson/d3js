@@ -1,6 +1,6 @@
 d3.csv("data/partages.csv", function(error, data) {
 
-    d3.csv("data/super.csv", function(error, data1) {
+    d3.csv("data/super.csv", function(error1, data1) {
    
         var hauteur = 700;
         var largeur = 1100;
@@ -8,7 +8,7 @@ d3.csv("data/partages.csv", function(error, data) {
 
         var graphe = d3.forceSimulation()
             .force("charge", d3.forceManyBody().strength(-20))
-            .force("link", d3.forceLink().id(function(d){return data1.id;}).distance(40))
+            .force("link", d3.forceLink().id(function(d){return d.t_id;}).distance(40))
             .force("x", d3.forceX(largeur / 2))
             .force("y", d3.forceY(hauteur / 2))
             .on("tick",ticked);
@@ -28,6 +28,8 @@ d3.csv("data/partages.csv", function(error, data) {
             .style("stroke-opacity", 1)
             .attr("class", "link").style("stroke-width", d => d.nbpartages);
 
+        console.log(lien);
+
         noeud = noeud.data(data1)
             .enter()
             .append("circle")
@@ -36,11 +38,13 @@ d3.csv("data/partages.csv", function(error, data) {
             .attr("class", "node")
             .attr("r", 5).style("stroke-width", 1.5);
 
+        console.log(noeud);
+
         function ticked(){
-            lien.attr("x1", function(d){return d.t_id.x;})
-                .attr("y1", function(d){return d.t_id.y;})
-                .attr("x2", function(d){return d.rt_id.x;})
-                .attr("y2", function(d){return d.rt_id.y;});
+            lien.attr("x1", function(d){return d.source.x;})
+                .attr("y1", function(d){return d.source.y;})
+                .attr("x2", function(d){return d.target.x;})
+                .attr("y2", function(d){return d.target.y;}); 
 
             noeud.attr("cx", function(d){return d.x;})
                 .attr("cy", function(d){return d.y;});
