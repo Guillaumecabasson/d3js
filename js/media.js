@@ -52,19 +52,8 @@ d3.csv("data/medias.csv", function(error, data1) {
             .attr("x", function(d, i) {
                 return xScale(d.nom);
             });
+  
 
-        d3.select('#svg4').append("text")             
-            .attr("transform", `translate(${largeur}, ${hauteur+marge.haut})`)
-            .style("text-anchor", "end")
-            .text("Nombre d'heures'");
-        
-        d3.select('#svg4').append("text")	
-		    .attr("transform", "rotate(-90)")	
-            .attr("y", marge.haut-3)
-            .attr("x", marge.gauche*5)
-            .style("text-anchor", "end")
-            .text("Médias");
-            
         d3.select('#svg4').append("g").call(xAxis);
         d3.select('#svg4').append("g").call(yAxis);
 
@@ -99,17 +88,6 @@ d3.csv("data/medias.csv", function(error, data1) {
             
         d3.select('#svg5').append("g").call(xAxis);
         d3.select('#svg5').append("g").call(yAxis);
-
-        d3.select('#svg5').append("text")             
-            .attr("transform", `translate(${largeur}, ${hauteur+marge.haut+15})`)
-            .style("text-anchor", "end")
-            .text("Nombre d'heures'");
-        
-        d3.select('#svg5').append("text")	
-            .attr("y", marge.haut-3)
-            .attr("x", marge.gauche*5)
-            .style("text-anchor", "end")
-            .text("Médias");
 
     });
 
