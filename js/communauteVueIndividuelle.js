@@ -1,12 +1,16 @@
-var width = 1000, height = 500;
-d3.csv("data/super.csv").then((data12) => {
+var width = 1000, height = 800;
+d3.csv("data/messages3.csv").then((data12) => {
     d3.csv("data/partages.csv").then((data) => {
 
-        var elements = data12;
-	    var selectedItem = elements[73];
+        var elements = data12.sort(function(a, b) {
+            return  a.id - b.id;
+          });
+
+
+	    var selectedItem = elements[0];
 
         var colorScale = ['orange', 'lightblue', '#B19CD9'];
-        var xCenter = [400, 25, 500];
+        var xCenter = [400, 100, 500];
 
         var userId = selectedItem.id;
 
@@ -17,6 +21,7 @@ d3.csv("data/super.csv").then((data12) => {
                 dataBis.push({id : element.rt_id, nb : element.nbpartages});
             }
         });
+
 
         var max = d3.max(dataBis, d => Number(d.nb));
 
@@ -29,7 +34,7 @@ d3.csv("data/super.csv").then((data12) => {
             return {
                 id : dataBis[i].id, 
                 nb : dataBis[i].nb,
-                radius : (Number(dataBis[i].nb) / max) * 100
+                radius : ((Number(dataBis[i].nb)/max)*10)
             }
         });
 
@@ -86,13 +91,13 @@ console.log(dataBis);
                     return {
                         id : dataBis[i].id, 
                         nb : dataBis[i].nb,
-                        radius : (Number(dataBis[i].nb) / max) * 100
+                        radius : Number(dataBis[i].nb)* 10
                     }
                 });
                 
 
                 simulation = d3.forceSimulation(data1)
-                    .force('charge', d3.forceManyBody().strength(5))
+                    .force('charge', d3.forceManyBody().strength(15))
                     .force('center', d3.forceCenter(xCenter[0], xCenter[1]))
                     .force('collision', d3.forceCollide().radius(function(d) {
                         return d.radius;
