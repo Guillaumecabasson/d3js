@@ -14,9 +14,9 @@ d3.csv("data/partages.csv", function(error, data) {
             .on("tick",ticked);
 
         var lien = d3.select("#svg1")
-            .selectAll(".link");
+            .selectAll("link");
         var noeud = d3.select("#svg1")
-            .selectAll(".node");
+            .selectAll("node");
 
         graphe.nodes(data1);
         graphe.force("link").links(data);
